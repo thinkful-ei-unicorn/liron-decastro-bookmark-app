@@ -8,9 +8,9 @@ const generateHtml = function(htmlList) {
         <button id="new-button" class="new-button">Add New</button>
     </div>
     <select name="filter" id="filter" class="filter">
-    <option value="0" ${(store.storeItems.filter === '0') ? 'selected' : ''}>Filter By Rating</option> 
+    <option>Filter By Rating</option> 
     <option value="0" ${(store.storeItems.filter === '0') ? 'selected' : ''}>Show All</option>
-    <option value="1" ${(store.storeItems.filter === '0') ? 'selected' : ''}>Hide unrated bookmarks</option>
+    <option value="1" ${(store.storeItems.filter === '1') ? 'selected' : ''}>Hide unrated bookmarks</option>
     <option value="2" ${(store.storeItems.filter === '2') ? 'selected' : ''}>Show only 2 stars and up</option>
     <option value="3" ${(store.storeItems.filter === '3') ? 'selected' : ''}>Show only 3 stars and up</option>
     <option value="4" ${(store.storeItems.filter === '4') ? 'selected' : ''}>Show only 4 stars and up</option>
