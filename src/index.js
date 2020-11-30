@@ -1,11 +1,20 @@
 import $ from 'jquery';
-import render from './render';
+
+import './style.css';
+import bookmarks from './bookmarks';
+import api from './api';
+import store from './store';
 
 
 
 
 function main () {
-render.renderHome()
+    api.getBookmarks()
+    .then((storeItems) => {
+      storeItems.forEach((item) => store.addBookmark(item));
+      bookmarks.renderHome();
+    });
+bookmarks.renderHome();
 }
 
 $(main);

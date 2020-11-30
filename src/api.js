@@ -1,48 +1,57 @@
-import store from './store';
+const BASE_URL = 'https://thinkful-list-api.herokuapp.com/lirondecastro';
 
-const baseURL = 'https://thinkful-list-api.herokuapp.com/lirondecastro';
+/**
+ * listApiFetch - Wrapper function for native `fetch` to standardize error handling. 
+ * @param {string} url 
+ * @param {object} options 
+ * @returns {Promise} - resolve on all 2xx responses with JSON body
+ *                    - reject on non-2xx and non-JSON response with 
+ *                      Object { code: Number, message: String }
+ */
 
-function getBookmarks() {
-    let request =  `${baseURL}/bookmarks`;
-    fetch(request,{
-        headers: {
-            'Content-Type': 'application/json'
+const listApiFetch = function (...args) {
+    let error;
+    return fetch(...args)
+    .then(res => {
+        if (!res.ok) {
+            error = { code: res.status };
+
+            if(!res.headers.get('content-type').includes('json')){
+                error.message = res.statusText
+            }
         }
-    }).then(response=>response.json()).then(json => {
-        console.log(json, ' est le json')
-        let newArray = json;
-        for (let i = 0; i < newArray.length; i++) {
-            newArray[i]["expanded"] = false;
-        }
-        console.log(newArray, ' est le information internel');
-        store.store.bookmarks = newArray;
+        return res.json();
     })
-    .catch(err=>console.log(err));
+    .then(data => {
+        if (error) {
+            error.message = data.message;
+            return Promise.reject(error);
+        }
+        return data;
+    });
 };
 
+const getBookmarks = function () {
+    return listApiFetch(`${BASE_URL}/bookmarks`)
+};
 
-function submitNew(newURL, newTitle, newDesc, newRating) {
-    const sendBookmark = JSON.stringify({
-        url: newURL,
-        title: newTitle,
-        desc: newDesc,
-        rating: newRating
-    });
-    fetch(`${baseURL}/bookmarks`, {
+const createBookmark = function (newBookmark) {
+    return listApiFetch(`${BASE_URL}/bookmarks`,
+    {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: sendBookmark    
+        body: newBookmark
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err.message));
-    getBookmarks();
-}
+};
 
+const deleteBookmark = function (id) {
+    return listApiFetch(BASE_URL + '/bookmarks/' + id, {
+        method: 'DELETE'
+    });
+};
 
 export default {
     getBookmarks,
-    submitNew
+    createBookmark,
+    deleteBookmark
 }
-
-
