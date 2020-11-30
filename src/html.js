@@ -1,5 +1,3 @@
-import $ from 'jquery';
-import bookmarks from './bookmarks';
 import store from './store';
 
 
