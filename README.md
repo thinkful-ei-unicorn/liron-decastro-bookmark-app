@@ -1,3 +1,9 @@
+https://thinkful-ei-unicorn.github.io/liron-decastro-bookmark-app/
+
+
+OVERVIEW: This is a simple web app that helps you compile bookmarks to different websites, give them a rating, and add a short description. You can also filter to only show bookmarks above a specific rating. Lastly, you also have the ability to delete them!
+
+
 As a user:
 
    !! COMPLETE !! I can add bookmarks to my bookmark list. Bookmarks contain:

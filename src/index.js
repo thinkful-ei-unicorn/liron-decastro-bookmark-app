@@ -14,6 +14,7 @@ function main () {
       storeItems.forEach((item) => store.addBookmark(item));
       bookmarks.renderHome();
     });
+
 bookmarks.renderHome();
 }
 

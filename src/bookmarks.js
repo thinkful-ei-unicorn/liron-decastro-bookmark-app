@@ -3,6 +3,7 @@ import api from './api';
 import store from './store';
 import html from './html';
 
+// add new methods that can be used with jquery, in this case to serialize into json
 $.fn.extend({
     serializeJson: function() {
       const formData = new FormData(this[0]);
@@ -12,7 +13,7 @@ $.fn.extend({
     }
   });
   
-
+// returns HTML for when an error message needs to appear
 const generateError = function (message) {
     return `
         <section class="error-content">
@@ -22,6 +23,7 @@ const generateError = function (message) {
       `;
 };
 
+// generates the error message
 const renderError = function () {
     if (store.storeItems.error) {
         const el = generateError(store.storeItems.error);
@@ -32,6 +34,7 @@ const renderError = function () {
     handleCloseError();
 };
 
+// closes the error message
 const handleCloseError = function () {
     $('.error-area').on('click', '#cancel-error', () => {
         store.setError(null);
@@ -39,7 +42,7 @@ const handleCloseError = function () {
     });
 };
 
-
+// handles click event on 'add new'
 const handleAddNew = function () {
     $('.new-button').click(event => {
         store.storeItems.adding = true;
@@ -47,8 +50,9 @@ const handleAddNew = function () {
     })
 };
 
+// handles submit event of new bookmark form
 const handleSubmitNew = function() {
-    $('.form-add').on('click', '.submit-form',(event) => {
+    $('.form-add').submit(event => {
         event.preventDefault();
         console.log('initial click'); 
         const newBookmark = $('.form-add').serializeJson();
@@ -66,6 +70,7 @@ const handleSubmitNew = function() {
     });
 }
 
+//handles click event on cancel buttin within the form
 const handleSubmitCancel = function () {
     $('.cancel-button').click(event => {
         store.storeItems.adding = false;
@@ -73,18 +78,21 @@ const handleSubmitCancel = function () {
     })
 }
 
+//retrieves ID from clicked bookmark
 const getIdFromElement = function (item) {
     return $(item)
     .closest('.collapsible')
     .data('bookmark-id')
 }
 
+//retrieves ID from delete button within a bookmark
 const getIdToDelete = function (item) {
     return $(item)
     .closest('.delete-button')
     .data('bookmark-id')
 }
 
+//handles click event on bookmark
 const handlePanelExpand = function () {
     $('.collapsible').click((event => {
         const panelID = getIdFromElement(event.currentTarget);
@@ -94,6 +102,7 @@ const handlePanelExpand = function () {
     }));
 }
 
+//handles event when filter is changed
 const handleFilter = function () {
     $('.filter').change(event => {
         let filter = $('.filter').val();
@@ -102,6 +111,7 @@ const handleFilter = function () {
     })
 }
 
+//handles delete button on bookmark
 const handleDeleteBookmark = function () {
     $('.delete-button').click(event => {
         const id = getIdToDelete(event.currentTarget);
@@ -119,6 +129,7 @@ const handleDeleteBookmark = function () {
     })
 }
 
+// renders the DOM
 const renderHome = function () {
     const renderBookmark = [...store.storeItems.bookmarks];
     if (store.storeItems.adding === false) {

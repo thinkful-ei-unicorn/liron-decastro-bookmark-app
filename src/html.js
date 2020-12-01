@@ -1,6 +1,6 @@
 import store from './store';
 
-
+//generates the main HTML for the DOM
 const generateHtml = function(htmlList) {
     let listHtml = htmlList.map(array => generateUi(array));  
     return `<div id="buttons" class="buttons">
@@ -16,11 +16,14 @@ const generateHtml = function(htmlList) {
     <option value="5" ${(store.storeItems.filter === '5') ? 'selected' : ''}>Show only 5 stars</option>
     </select>
 </div>
-<div class="main-display" id="main-display">
+<div class="content">
+<ul class="main-display" id="main-display">
 ${listHtml.join('')}
+</ul>
 </div>`
 }
 
+//determines if a list is to be shown according to the filter, and to be expanded 
 const generateUi = function (array) {
     if (array.rating >= store.storeItems.filter) {
         if(array.expanded === true){
@@ -32,68 +35,69 @@ const generateUi = function (array) {
 }
 
 
-
+//what a bookmark will look like unexpanded
 const defaultView = function (array) {
     let displayRating;
     let starClicked = array.rating;
     const starHTML = `<span class="fa fa-star checked"></span>`;
     displayRating = starHTML.repeat(starClicked);
-    return `<div class="content">
-            <button type="button" class="collapsible" id="bookmark-content" data-bookmark-id="${array.id}">
-                <div class="button-text" id="button-text">${array.title}</div>
-                <div class="etoiles">
-                    ${displayRating}
-                </div>
-            </button> </div>
+    return `<li class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
+            <p class="button-text" id="button-text-${array.id}">${array.title}</p>
+            <p class="etoiles">
+                ${displayRating}
+            </p>
+            </li>
             `
 }
 
+//what a bookmark will look like expanded
 const panelView = function (array) {
     let displayRating;
     let starClicked = array.rating;
     const starHTML = `<span class="fa fa-star checked"></span>`;
     displayRating = starHTML.repeat(starClicked);
-    return `<div class="content">
-    <button type="button" class="collapsible" id="bookmark-content" data-bookmark-id="${array.id}">
-        <div class="button-text" id="button-text">${array.title}</div>
-        <div class="etoiles">
-            ${displayRating}
-        </div>
-    </button> </div>
+    return `<li class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
+    <p class="button-text" id="button-text-${array.id}">${array.title}</p>
+    <p class="etoiles">
+        ${displayRating}
+    </p>
     <div class="panel">
     <div class="drop-down-button">
-    <button class="visit-site" onclick="window.open('${array.url}','_blank')">Visit Site</button>
-    <button class="delete-button" id="delete-button" data-bookmark-id=${array.id}> Delete</button>
+    <a href="${array.url}" target="_blank" ref="external" class="visit-site")">Visit Site</a>
+    <button class="delete-button" id="delete-${array.id}" data-bookmark-id=${array.id}> Delete</button>
     </div>
-    <p id='drop-down-text'>
+    <p id='desc-for-${array.id}' class='drop-down-text'>
         ${array.desc}           
     </p>
-</div>` 
+</div>  </li>` 
 }
 
+//HTML for the form to add a new bookmark
 function addBookmark() {
     return `<div class="add-bookmark">
     <form class="form-add">
         <div class="url-input">
-        <label for="url">Add new bookmark:</label>
-            <input type="text" name="url" id="enter-link" placeholder="enter URL here"required>
+            <label for="enter-link">Enter URL (must start with 'http://' or 'https://'):</label>
+            <input type="text" name="url" id="enter-link" placeholder="enter URL here" required />
         </div> <div class="inner-box">
                 <div class="name-input">
-                <input type="text" name="title" id="enter-title" placeholder="Enter title here" required>
+                <label for="enter-title">Enter title:</label>
+                <input type="text" name="title" id="enter-title" placeholder="Enter title here" required />
                 </div>
                 <div class="stars">
-                    <input class="star star-5" id="star-5" type="radio" name="rating" value="5" required />
+                    <input aria-label="5 stars" class="star star-5" id="star-5" type="radio" name="rating" value="5" />
                     <label class="star star-5" for="star-5"></label>
-                    <input class="star star-4" id="star-4" type="radio" name="rating" value="4" required />
+                    <input aria-label="4 stars" class="star star-4" id="star-4" type="radio" name="rating" value="4" />
                     <label class="star star-4" for="star-4"></label>
-                    <input class="star star-3" id="star-3" type="radio" name="rating" value="3" required />
+                    <input aria-label="3 stars" class="star star-3" id="star-3" type="radio" name="rating" value="3" />
                     <label class="star star-3" for="star-3"></label>
-                    <input class="star star-2" id="star-2" type="radio" name="rating" value="2" required />
+                    <input aria-label="2 stars" class="star star-2" id="star-2" type="radio" name="rating" value="2" />
                     <label class="star star-2" for="star-2"></label>
-                    <input class="star star-1" id="star-1" type="radio" name="rating" value="1" required />
+                    <input aria-label="1 star" class="star star-1" id="star-1" type="radio" name="rating" value="1" />
                     <label class="star star-1" for="star-1"></label>
                 </div>
                 <div class="description-area">
+                    <label for="input-description">Enter description here (optional):</label>
                     <textarea name="desc" id="input-description" placeholder="Enter Description (optional)"></textarea>
                 </div>
             </div>

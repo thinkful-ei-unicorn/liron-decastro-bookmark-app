@@ -1,5 +1,11 @@
+/* formatting for items outside of the DOM, as well as any global formatting */
 body {
     background-color: #22223B;
+}
+
+li {
+    list-style-type: none;
+    text-align: center;
 }
 
 header {
@@ -27,6 +33,8 @@ footer {
     font-family: 'roboto', sans-serif;
 }
 
+/* add button and filter menu */
+
 #buttons {
     display: flex;
     justify-content: center;
@@ -49,31 +57,32 @@ footer {
     background-color: #4a321d;
 }
 
+/* main body of app */
+
 .main-display {
-    margin: 40px;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.content {
-    display: flex;
-}
 
 .collapsible, .list-empty{
-    margin-top: 1%;
+    text-align: center;
     display: flex;
-    justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    height: inherit;
     font-family: 'roboto', sans-serif;
     font-size: inherit;
     background: #4A4E69;
     color: #dadfe1;
     border-radius: 0px;
     box-shadow: none;
-    border: NONE;
+    border: none;
+    margin: 1%;
     font-weight: bold;
-    padding: 1%;
 }
+
 
 .collapsible:hover {
     background-color: #ccc;
@@ -85,13 +94,6 @@ footer {
     color: #444;
 }
 
-.button-text {
-    flex: 4;
-}
-
-.etoiles {
-    flex: 1;
-}
 
 .checked {
     color: orange;
@@ -102,10 +104,11 @@ footer {
     padding: 2%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin: 0px;
 }
 
 .visit-site, .delete-button {
+    text-decoration: none;
     background: #4A4E69;
     color: #dadfe1;
     font-family: 'roboto', sans-serif;
@@ -118,8 +121,9 @@ footer {
     font-weight: bold;
 }
 
-#drop-down-text {
-    text-align: justify;
+.drop-down-text {
+    text-align: center;
+    padding: 1%;
     color: #2b2b2b;
     font-family: 'roboto', sans-serif;
 }
@@ -168,6 +172,8 @@ label.star:before {
 }
 
 
+/* new bookmark form */
+
 textarea {
   left:10px; top:10px;
   width:  100%;
@@ -208,6 +214,7 @@ div.inner-box {
     display: flex;
     flex-direction: column;
     background-color: #9A8C98;
+    color: #444;
 }
 
 #enter-title {

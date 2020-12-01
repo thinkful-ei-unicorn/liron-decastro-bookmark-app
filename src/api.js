@@ -31,10 +31,13 @@ const listApiFetch = function (...args) {
     });
 };
 
+
+//retrieve data from the server
 const getBookmarks = function () {
     return listApiFetch(`${BASE_URL}/bookmarks`)
 };
 
+//Performs a POST to the API
 const createBookmark = function (newBookmark) {
     return listApiFetch(`${BASE_URL}/bookmarks`,
     {
@@ -44,6 +47,8 @@ const createBookmark = function (newBookmark) {
     })
 };
 
+
+//Deletes data from the server
 const deleteBookmark = function (id) {
     return listApiFetch(BASE_URL + '/bookmarks/' + id, {
         method: 'DELETE'
