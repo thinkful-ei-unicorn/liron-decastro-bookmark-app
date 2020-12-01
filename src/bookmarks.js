@@ -100,6 +100,12 @@ const handlePanelExpand = function () {
         store.expandThis(panelID);
         renderHome();
     }));
+    $('.collapsible').keypress((event=> {
+        const panelID = getIdFromElement(event.currentTarget);
+        console.log('ID is ', panelID)
+        store.expandThis(panelID);
+        renderHome();
+    }))
 }
 
 //handles event when filter is changed

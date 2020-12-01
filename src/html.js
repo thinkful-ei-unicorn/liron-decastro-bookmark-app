@@ -5,9 +5,9 @@ const generateHtml = function(htmlList) {
     let listHtml = htmlList.map(array => generateUi(array));  
     return `<div id="buttons" class="buttons">
     <div class="for-new-button">
-        <button id="new-button" class="new-button">Add New</button>
+        <button id="new-button" class="new-button" tabindex="0">Add New</button>
     </div>
-    <select name="filter" id="filter" class="filter">
+    <select tabindex="0" name="filter" id="filter" class="filter">
     <option value="0" ${(store.storeItems.filter === '0') ? 'selected' : ''}>Filter by Rating</option>
     <option value="1" ${(store.storeItems.filter === '1') ? 'selected' : ''}>Hide unrated bookmarks</option>
     <option value="2" ${(store.storeItems.filter === '2') ? 'selected' : ''}>Show only 2 stars and up</option>
@@ -41,7 +41,7 @@ const defaultView = function (array) {
     let starClicked = array.rating;
     const starHTML = `<span class="fa fa-star checked"></span>`;
     displayRating = starHTML.repeat(starClicked);
-    return `<li class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
+    return `<li tabindex="0" class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
             <p class="button-text" id="button-text-${array.id}">${array.title}</p>
             <p class="etoiles">
                 ${displayRating}
@@ -56,7 +56,7 @@ const panelView = function (array) {
     let starClicked = array.rating;
     const starHTML = `<span class="fa fa-star checked"></span>`;
     displayRating = starHTML.repeat(starClicked);
-    return `<li class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
+    return `<li tabindex="0" class="collapsible" id="bookmark-content-${array.id}" data-bookmark-id="${array.id}">
     <p class="button-text" id="button-text-${array.id}">${array.title}</p>
     <p class="etoiles">
         ${displayRating}
@@ -105,7 +105,6 @@ function addBookmark() {
             <button class="cancel-button" default>Cancel</button>
             <button type="submit" class="submit-form">Submit</button>
             </div>
-        </label>
     </form>
 </div>`
 }
